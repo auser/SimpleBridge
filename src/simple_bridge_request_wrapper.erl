@@ -45,9 +45,9 @@ query_params() -> Mod:query_params(Req).
 
 post_params() -> 
     case {request_method(), IsMultiPart} of
-        {'POST', true}  -> PostParams;
-        {'POST', false} -> Mod:post_params(Req);
-        _ -> []
+        {'GET', _} -> [];
+        {_, true}  -> PostParams;
+        {_, false} -> Mod:post_params(Req)
     end.
 
 post_files() -> PostFiles.
