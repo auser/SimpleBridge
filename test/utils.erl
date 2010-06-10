@@ -3,20 +3,24 @@
 -compile(export_all).
 
 make_inets_get_bridge() ->
-    % Construct the inets bridge...
-    {ok, [InetsRequest] } = file:consult("data/inets_get_request_data"),
-    {ok, Socket} = gen_tcp:connect(?PEER_IP, ?PEER_PORT, []),
-    InetsRequest1 = inject_socket(InetsRequest, Socket),
-    InetsBridge = simple_bridge:make_request(inets_request_bridge, InetsRequest1),
-    InetsBridge.
+  Dir = filename:dirname(filename:dirname(code:which(?MODULE))),
+  RequestDataFile = filename:join([Dir, "data", "inets_get_request_data"]),
+  % Construct the inets bridge...
+  {ok, [InetsRequest] } = file:consult(RequestDataFile),
+  {ok, Socket} = gen_tcp:connect(?PEER_IP, ?PEER_PORT, []),
+  InetsRequest1 = inject_socket(InetsRequest, Socket),
+  InetsBridge = simple_bridge:make_request(inets_request_bridge, InetsRequest1),
+  InetsBridge.
 
 make_inets_post_bridge() ->
-    % Construct the inets bridge...
-    {ok, [InetsRequest] } = file:consult("data/inets_post_request_data"),
-    {ok, Socket} = gen_tcp:connect(?PEER_IP, ?PEER_PORT, []),
-    InetsRequest1 = inject_socket(InetsRequest, Socket),
-    InetsBridge = simple_bridge:make_request(inets_request_bridge, InetsRequest1),
-    InetsBridge.
+  Dir = filename:dirname(filename:dirname(code:which(?MODULE))),
+  RequestDataFile = filename:join([Dir, "data", "inets_post_request_data"]),
+  % Construct the inets bridge...
+  {ok, [InetsRequest] } = file:consult(RequestDataFile),
+  {ok, Socket} = gen_tcp:connect(?PEER_IP, ?PEER_PORT, []),
+  InetsRequest1 = inject_socket(InetsRequest, Socket),
+  InetsBridge = simple_bridge:make_request(inets_request_bridge, InetsRequest1),
+  InetsBridge.
 
 
 % inject_socket(Term, FakeSocket) ->
